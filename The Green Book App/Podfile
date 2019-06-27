@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'The Green Book App' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for The Green Book App
+  pod 'Firebase/Core'
+  pod 'Fabric', '~> 1.10.2'
+  pod 'Crashlytics', '~> 3.13.2'
+  pod 'FirebaseAnalytics'
+  pod 'Firebase/Performance'
+
+  target 'The Green Book AppTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'The Green Book AppUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
