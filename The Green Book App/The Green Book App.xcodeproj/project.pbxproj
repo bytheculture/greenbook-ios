@@ -10,6 +10,8 @@
 		71B7B2E6589E31A0B97A69F7 /* Pods_The_Green_Book_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD9BDEF3BEF98BFEB4B6AFF /* Pods_The_Green_Book_AppUITests.framework */; };
 		CA0EE0D7F0FEE5CDE676B844 /* Pods_The_Green_Book_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0B2BC06BBD3EC378B1885D /* Pods_The_Green_Book_AppTests.framework */; };
 		CA81FA9BC0736C95EC3933AF /* Pods_The_Green_Book_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BA03F59D2587986295C58C /* Pods_The_Green_Book_App.framework */; };
+		D8192D9922C541F100B76519 /* Flood.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8192D9722C541F000B76519 /* Flood.ttf */; };
+		D8192D9A22C541F100B76519 /* FjallaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8192D9822C541F100B76519 /* FjallaOne-Regular.ttf */; };
 		D83694C122C521C7004875C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83694C022C521C7004875C1 /* GoogleService-Info.plist */; };
 		D87D812922C51F0D00321EE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D812822C51F0D00321EE7 /* AppDelegate.swift */; };
 		D87D812B22C51F0D00321EE7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D812A22C51F0D00321EE7 /* ViewController.swift */; };
@@ -46,6 +48,8 @@
 		813405A6B9980F642DC89220 /* Pods-The Green Book AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Green Book AppTests.debug.xcconfig"; path = "Target Support Files/Pods-The Green Book AppTests/Pods-The Green Book AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A32E8EA9ECD2F5C5C8E179DD /* Pods-The Green Book AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Green Book AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-The Green Book AppUITests/Pods-The Green Book AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0BA03F59D2587986295C58C /* Pods_The_Green_Book_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_The_Green_Book_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8192D9722C541F000B76519 /* Flood.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Flood.ttf; sourceTree = "<group>"; };
+		D8192D9822C541F100B76519 /* FjallaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FjallaOne-Regular.ttf"; sourceTree = "<group>"; };
 		D83694C022C521C7004875C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D87D812522C51F0D00321EE7 /* The Green Book App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Green Book App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87D812822C51F0D00321EE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +118,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D8192D9B22C5420E00B76519 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D8192D9822C541F100B76519 /* FjallaOne-Regular.ttf */,
+				D8192D9722C541F000B76519 /* Flood.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		D87D811C22C51F0D00321EE7 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +159,7 @@
 				D87D812F22C51F0E00321EE7 /* Assets.xcassets */,
 				D87D813122C51F0E00321EE7 /* LaunchScreen.storyboard */,
 				D87D813422C51F0E00321EE7 /* Info.plist */,
+				D8192D9B22C5420E00B76519 /* fonts */,
 			);
 			path = "The Green Book App";
 			sourceTree = "<group>";
@@ -279,8 +293,10 @@
 			files = (
 				D87D813322C51F0E00321EE7 /* LaunchScreen.storyboard in Resources */,
 				D83694C122C521C7004875C1 /* GoogleService-Info.plist in Resources */,
+				D8192D9A22C541F100B76519 /* FjallaOne-Regular.ttf in Resources */,
 				D87D813022C51F0E00321EE7 /* Assets.xcassets in Resources */,
 				D87D812E22C51F0D00321EE7 /* Main.storyboard in Resources */,
+				D8192D9922C541F100B76519 /* Flood.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

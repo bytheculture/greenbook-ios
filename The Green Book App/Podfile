@@ -11,7 +11,12 @@ target 'The Green Book App' do
   pod 'Crashlytics', '~> 3.13.2'
   pod 'FirebaseAnalytics'
   pod 'Firebase/Performance'
-
+  pod 'SnapKit'
+  pod 'TextFieldEffects'
+  pod 'SwiftyButton'
+  pod 'SCLAlertView'
+  pod 'IQKeyboardManager'
+  
   target 'The Green Book AppTests' do
     inherit! :search_paths
     # Pods for testing
