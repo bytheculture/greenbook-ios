@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  SignUp.swift
 //  The Green Book App
 //
-//  Created by Alyssa Gable on 6/27/19.
+//  Created by Alyssa Gable on 6/28/19.
 //  Copyright © 2019 By The Culture. All rights reserved.
 //
 
@@ -10,9 +10,10 @@ import UIKit
 import SnapKit
 import TextFieldEffects
 import SwiftyButton
+import Firebase
 
-class ViewController: UIViewController {
-
+class SignUp: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,13 +38,13 @@ class ViewController: UIViewController {
         loginLabel.textColor = UIColor.white
         
         let emailAddressField = HoshiTextField()
-        emailAddressField.placeholder = "Email Address"
+        emailAddressField.placeholder = "Email Address or Phone Number"
         emailAddressField.textColor = UIColor.white
         emailAddressField.placeholderColor = UIColor.white
         emailAddressField.borderActiveColor = UIColor.white
         emailAddressField.borderInactiveColor = UIColor.white
         emailAddressField.font = UIFont(name: "FjallaOne-Regular", size: 18)
-
+        
         let passwordField = HoshiTextField()
         passwordField.placeholder = "Password"
         passwordField.textColor = UIColor.white
@@ -81,19 +82,19 @@ class ViewController: UIViewController {
         googleLogin.setImage(googleButton, for: .normal)
         
         self.view.addSubview(logoView)
-//        if UIDevice().userInterfaceIdiom == .phone {
-//            switch UIScreen.main.nativeBounds.height {
-//            case 2436:
-//                print("iPhone X, XS")
-//            case 2688:
-//                print("iPhone XS Max")
-//            case 2688:
-//                print("iPhone XR")
-//            default:
-//                print("Other phone")
-//            }
-//
-//        }
+        //        if UIDevice().userInterfaceIdiom == .phone {
+        //            switch UIScreen.main.nativeBounds.height {
+        //            case 2436:
+        //                print("iPhone X, XS")
+        //            case 2688:
+        //                print("iPhone XS Max")
+        //            case 2688:
+        //                print("iPhone XR")
+        //            default:
+        //                print("Other phone")
+        //            }
+        //
+        //        }
         
         logoView.snp.makeConstraints { (make) -> Void in
             make.width.height.equalTo(168)
@@ -181,7 +182,31 @@ class ViewController: UIViewController {
             make.left.equalTo(facebookLogin.snp.right).offset(25)
         }
     }
-
-
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    func loginToFirebase() {
+        
+    }
+    
 }
-
+extension String {
+    var isPhoneNumber: Bool {
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
+            let matches = detector.matches(in: self, options: [], range: NSMakeRange(0, self.count))
+            if let res = matches.first {
+                return res.resultType == .phoneNumber && res.range.location == 0 && res.range.length == self.count
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
+}

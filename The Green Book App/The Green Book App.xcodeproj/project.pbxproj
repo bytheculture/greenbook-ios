@@ -14,12 +14,13 @@
 		D8192D9A22C541F100B76519 /* FjallaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8192D9822C541F100B76519 /* FjallaOne-Regular.ttf */; };
 		D83694C122C521C7004875C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D83694C022C521C7004875C1 /* GoogleService-Info.plist */; };
 		D87D812922C51F0D00321EE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D812822C51F0D00321EE7 /* AppDelegate.swift */; };
-		D87D812B22C51F0D00321EE7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D812A22C51F0D00321EE7 /* ViewController.swift */; };
+		D87D812B22C51F0D00321EE7 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D812A22C51F0D00321EE7 /* Login.swift */; };
 		D87D812E22C51F0D00321EE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87D812C22C51F0D00321EE7 /* Main.storyboard */; };
 		D87D813022C51F0E00321EE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D87D812F22C51F0E00321EE7 /* Assets.xcassets */; };
 		D87D813322C51F0E00321EE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87D813122C51F0E00321EE7 /* LaunchScreen.storyboard */; };
 		D87D813E22C51F0E00321EE7 /* The_Green_Book_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D813D22C51F0E00321EE7 /* The_Green_Book_AppTests.swift */; };
 		D87D814922C51F0E00321EE7 /* The_Green_Book_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D814822C51F0E00321EE7 /* The_Green_Book_AppUITests.swift */; };
+		D8DD202422C68B2B0062E341 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD202322C68B2B0062E341 /* SignUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +54,7 @@
 		D83694C022C521C7004875C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D87D812522C51F0D00321EE7 /* The Green Book App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Green Book App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87D812822C51F0D00321EE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D87D812A22C51F0D00321EE7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D87D812A22C51F0D00321EE7 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		D87D812D22C51F0D00321EE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D87D812F22C51F0E00321EE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D87D813222C51F0E00321EE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		D87D814422C51F0E00321EE7 /* The Green Book AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Green Book AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87D814822C51F0E00321EE7 /* The_Green_Book_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Green_Book_AppUITests.swift; sourceTree = "<group>"; };
 		D87D814A22C51F0E00321EE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8DD202322C68B2B0062E341 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		F68358FCD6CF338B9B170904 /* Pods-The Green Book AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Green Book AppUITests.release.xcconfig"; path = "Target Support Files/Pods-The Green Book AppUITests/Pods-The Green Book AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,9 +154,9 @@
 		D87D812722C51F0D00321EE7 /* The Green Book App */ = {
 			isa = PBXGroup;
 			children = (
-				D83694C022C521C7004875C1 /* GoogleService-Info.plist */,
 				D87D812822C51F0D00321EE7 /* AppDelegate.swift */,
-				D87D812A22C51F0D00321EE7 /* ViewController.swift */,
+				D8DD202222C67E7D0062E341 /* View */,
+				D83694C022C521C7004875C1 /* GoogleService-Info.plist */,
 				D87D812C22C51F0D00321EE7 /* Main.storyboard */,
 				D87D812F22C51F0E00321EE7 /* Assets.xcassets */,
 				D87D813122C51F0E00321EE7 /* LaunchScreen.storyboard */,
@@ -180,6 +182,23 @@
 				D87D814A22C51F0E00321EE7 /* Info.plist */,
 			);
 			path = "The Green Book AppUITests";
+			sourceTree = "<group>";
+		};
+		D8DD202222C67E7D0062E341 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D87D812A22C51F0D00321EE7 /* Login.swift */,
+				D8DD202322C68B2B0062E341 /* SignUp.swift */,
+				D8DD202522C68BDA0062E341 /* Extensions */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D8DD202522C68BDA0062E341 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,7 +444,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D87D812B22C51F0D00321EE7 /* ViewController.swift in Sources */,
+				D87D812B22C51F0D00321EE7 /* Login.swift in Sources */,
+				D8DD202422C68B2B0062E341 /* SignUp.swift in Sources */,
 				D87D812922C51F0D00321EE7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

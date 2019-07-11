@@ -1,13 +1,9 @@
 {
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  },
   "images" : [
     {
-      "filename" : "gradient~universal@1x.png",
+      "idiom" : "universal",
       "scale" : "1x",
-      "idiom" : "universal"
+      "filename" : "gradient~universal@1x.png"
     },
     {
       "filename" : "gradient~universal@2x.png",
@@ -19,5 +15,9 @@
       "idiom" : "universal",
       "scale" : "3x"
     }
-  ]
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
 }
