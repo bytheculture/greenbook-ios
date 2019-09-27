@@ -16,17 +16,25 @@ import NVActivityIndicatorView
 import SCLAlertView
 import FBSDKLoginKit
 import FacebookLogin
+import GoogleSignIn
 
-class Login: UIViewController {
+class Login: UIViewController, GIDSignInUIDelegate {
     
     var emailAddressField = HoshiTextField()
+    var phoneNumberField = HoshiTextField()
     var passwordField = HoshiTextField()
     var activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), type: .ballTrianglePath, color: UIColor.white, padding: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        GIDSignIn.sharedInstance().delegate = self as? GIDSignInDelegate
+        GIDSignIn.sharedInstance().uiDelegate = self
+        
+        // Uncomment to automatically sign in the user.
+
+        //GIDSignIn.sharedInstance().signInSilently()
+
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "gradient")!)
         
         setUpView()
@@ -46,12 +54,20 @@ class Login: UIViewController {
         loginLabel.font = UIFont(name: "FjallaOne-Regular", size: 17)
         loginLabel.textColor = UIColor.white
         
-        emailAddressField.placeholder = "Email Address or Phone Number"
+        emailAddressField.placeholder = "Email Address"
         emailAddressField.textColor = UIColor.white
         emailAddressField.placeholderColor = UIColor.white
         emailAddressField.borderActiveColor = UIColor.white
         emailAddressField.borderInactiveColor = UIColor.white
         emailAddressField.font = UIFont(name: "FjallaOne-Regular", size: 18)
+        
+        phoneNumberField.placeholder = "Phone Number"
+        phoneNumberField.keyboardType = .numberPad
+        phoneNumberField.textColor = UIColor.white
+        phoneNumberField.placeholderColor = UIColor.white
+        phoneNumberField.borderActiveColor = UIColor.white
+        phoneNumberField.borderInactiveColor = UIColor.white
+        phoneNumberField.font = UIFont(name: "FjallaOne-Regular", size: 18)
 
         passwordField.placeholder = "Password"
         passwordField.textColor = UIColor.white
@@ -72,14 +88,23 @@ class Login: UIViewController {
         loginButton.highlightedColor = UIColor(red:0.30, green:0.30, blue:0.30, alpha:1.0)
         loginButton.setTitle("LOGIN", for: .normal)
         loginButton.titleLabel?.font = UIFont(name: "FjallaOne-Regular", size: 28)
-        
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+
         let registerButton = UIButton()
         registerButton.setTitle("REGISTER NOW", for: .normal)
         registerButton.setTitleColor(UIColor.white, for: .normal)
         registerButton.titleLabel?.font = UIFont(name: "FjallaOne-Regular", size: 14)
+        registerButton.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+
         
         let or = UIImage(named: "or")
         let orView = UIImageView(image: or!)
+        let orView2 = UIImageView(image: or!)
+        
+        let signInWithLabel = UILabel()
+        signInWithLabel.text = "SIGN IN WITH"
+        signInWithLabel.font = UIFont(name: "FjallaOne-Regular", size: 17)
+        signInWithLabel.textColor = UIColor.white
         
         let facebookLogin = UIButton()
         let facebookButton = UIImage(named: "facebookButton")
@@ -90,6 +115,8 @@ class Login: UIViewController {
         let googleLogin = UIButton()
         let googleButton = UIImage(named: "googleButton")
         googleLogin.setImage(googleButton, for: .normal)
+        googleLogin.addTarget(self, action: #selector(googleLoginButtonClicked), for: .touchUpInside)
+
         
         self.view.addSubview(logoView)
 //        if UIDevice().userInterfaceIdiom == .phone {
@@ -110,8 +137,8 @@ class Login: UIViewController {
         let screenWdith = self.view.bounds.width
         
         logoView.snp.makeConstraints { (make) -> Void in
-            make.width.height.equalTo(168)
-            make.top.equalToSuperview().offset(screenHeight * 1/25)
+            make.width.height.equalTo(80)
+            make.top.equalToSuperview().offset(screenHeight * 1/17)
             make.centerX.equalToSuperview()
         }
         
@@ -131,11 +158,29 @@ class Login: UIViewController {
             make.left.equalToSuperview().offset(screenWdith * 1/10)
         }
         
+        self.view.addSubview(phoneNumberField)
+        phoneNumberField.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(loginLabel.snp.bottom).offset(5)
+            make.width.equalTo(300)
+            make.height.equalTo(40)
+            make.left.equalTo(loginLabel.snp.left)
+            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+        }
+        
+        self.view.addSubview(orView)
+        orView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(phoneNumberField.snp.bottom).offset(20)
+            make.left.equalTo(loginLabel.snp.left)
+            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+            make.height.equalTo(20)
+            make.centerX.equalToSuperview()
+        }
+        
         self.view.addSubview(emailAddressField)
         emailAddressField.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(orView.snp.bottom).offset(-15)
             make.width.equalTo(300)
             make.height.equalTo(50)
-            make.top.equalTo(loginLabel.snp.bottom).offset(10)
             make.left.equalTo(loginLabel.snp.left)
             make.right.equalToSuperview().offset(-screenWdith * 1/10)
         }
@@ -144,7 +189,7 @@ class Login: UIViewController {
         passwordField.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(300)
             make.height.equalTo(50)
-            make.top.equalTo(emailAddressField.snp.bottom).offset(25)
+            make.top.equalTo(emailAddressField.snp.bottom).offset(10)
             make.left.equalTo(loginLabel.snp.left)
             make.right.equalToSuperview().offset(-screenWdith * 1/10)
         }
@@ -165,8 +210,6 @@ class Login: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-        
         self.view.addSubview(registerButton)
         registerButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(loginButton.snp.bottom).offset(15)
@@ -175,18 +218,26 @@ class Login: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        self.view.addSubview(orView)
-        orView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(registerButton.snp.bottom).offset(screenHeight * 1/20)
+        self.view.addSubview(orView2)
+        orView2.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(registerButton.snp.bottom).offset(screenHeight * 1/40)
             make.left.equalTo(loginLabel.snp.left)
             make.right.equalToSuperview().offset(-screenWdith * 1/10)
             make.height.equalTo(20)
             make.centerX.equalToSuperview()
         }
         
+        self.view.addSubview(signInWithLabel)
+        signInWithLabel.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(100)
+            make.height.equalTo(20)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(orView2.snp.bottom).offset(15)
+        }
+        
         self.view.addSubview(facebookLogin)
         facebookLogin.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(orView.snp.bottom).offset(25)
+            make.top.equalTo(signInWithLabel.snp.bottom).offset(15)
             make.width.equalTo(75)
             make.height.equalTo(75)
             make.centerX.equalToSuperview().offset(-60)
@@ -197,7 +248,7 @@ class Login: UIViewController {
             make.top.equalTo(facebookLogin.snp.top)
             make.width.equalTo(75)
             make.height.equalTo(75)
-            make.left.equalTo(facebookLogin.snp.right).offset(40)
+            make.centerX.equalToSuperview().offset(60)
         }
         
         self.view.addSubview(activityIndicator)
@@ -214,40 +265,43 @@ class Login: UIViewController {
         return emailTest.evaluate(with: testStr)
     }
     
+    func isPhoneNumberValid(testNumber:String) -> Bool {
+        //        TODO:  ADD PHONE NUMBER REG EXPRESSION
+        let phoneNumberRegEx = "^\\d{3}-\\d{3}-\\d{4}$"
+        
+        let numberTest = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegEx)
+        return numberTest.evaluate(with: testNumber)
+    }
+    
     @objc func login() {
         let email = emailAddressField.text ?? ""
         let password = passwordField.text ?? ""
+        let phoneNumber = phoneNumberField.text ?? ""
         
-        //shakes UITextFields if they are empty
-        if email == "" || password == "" {
-            self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-            self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-            activityIndicator.stopAnimating()
-        } else if isValidEmail(testStr: email) {
-            activityIndicator.startAnimating()
-            loginToFirebase(email: email, password: password, phoneNumber: nil)
-        } else {
-            showIncompleteError(errorMessage: "Please use the following email format: test@email.com")
+        if email != "" {
+            if password == "" {
+                self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
+            } else {
+                if isValidEmail(testStr: email) {
+                    activityIndicator.startAnimating()
+                    loginToFirebase(email: email, password: password, phoneNumber: nil)
+                } else {
+                    showIncompleteError(errorMessage: "Please use the following email format: name@email.com")
+                }
+            }
+        } else if phoneNumber != "" {
+//            if isPhoneNumberValid(testNumber: phoneNumber) {
+                activityIndicator.startAnimating()
+                loginToFirebase(email: "", password: password, phoneNumber: phoneNumber)
+//            } else {
+//                showIncompleteError(errorMessage: "Please use the following phone number format: 334-000-0000")
+//            }
         }
-        
+         
     }
     
-    func loginToFirebase(email: String, password: String, phoneNumber: String?) {
-        
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                
-                self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-                self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-                
-                self.showIncompleteError(errorMessage: error.localizedDescription)
-                
-            } else if Auth.auth().currentUser != nil {
-                self.activityIndicator.stopAnimating()
-                self.showSuccessMessage()
-            }
-        }
+    @objc func goToRegister() {
+        self.present(SignUp(), animated: true, completion: nil)
     }
     
     @objc func forgotPassword() {
@@ -262,7 +316,7 @@ class Login: UIViewController {
             // action here
         }
         
-        alert.showCustom("Reset Your Password", subTitle: "Please enter your email address below and we will send you an email to reset your password.", color: UIColor.white, icon: UIImage(named: "mustache")!, closeButtonTitle: "Cancel", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 30.0, timeoutAction:timeoutAction), colorStyle: 1, colorTextButton: 2, circleIconImage: UIImage(named: "mustache")!, animationStyle: .leftToRight)
+        alert.showCustom("Reset Your Password", subTitle: "Please enter your email address below and we will send you an email to reset your password.", color: UIColor.white, icon: UIImage(named: "bigGLogo")!, closeButtonTitle: "Cancel", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 30.0, timeoutAction:timeoutAction), colorStyle: 1, colorTextButton: 2, circleIconImage: UIImage(), animationStyle: .rightToLeft)
     }
     
     //shows incomplete error message alert view
@@ -306,7 +360,6 @@ class Login: UIViewController {
     func resetPassword(email: String) {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error != nil {
-                let alertView = SCLAlertView()
                 self.showIncompleteError(errorMessage: (error?.localizedDescription)!)
             } else {
                 self.showIncompleteError(errorMessage: "Please check your inbox for an email.")
@@ -314,7 +367,78 @@ class Login: UIViewController {
         }
     }
     
-    // Once the button is clicked, show the login dialog
+    // LOGGING INTO FIREBASE
+    func loginToFirebase(email: String?, password: String, phoneNumber: String?) {
+        let userEmail = email
+        
+        if userEmail!.isEmpty {
+            phoneNumberLogin(phoneNumber: phoneNumber!, password: password)
+        } else {
+            Auth.auth().signIn(withEmail: email!, password: password) { (user, error) in
+                if let error = error {
+                    let alert = SCLAlertView()
+                    self.showIncompleteError(errorMessage: error.localizedDescription)
+
+                    self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
+                    self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
+                    
+                    
+                } else if Auth.auth().currentUser != nil {
+                    self.activityIndicator.stopAnimating()
+                    self.showSuccessMessage()
+                }
+            }
+        }
+    }
+    
+    func phoneNumberLogin(phoneNumber: String!, password: String) {
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            
+            if let error = error {
+
+                let alert = SCLAlertView()
+                alert.showError("Oh No!", subTitle: error.localizedDescription)
+                self.activityIndicator.stopAnimating()
+                return
+            } else {
+                // Sign in using the verificationID and the code sent to the user
+                
+    //            ask user for verificationCode
+                let alert = SCLAlertView()
+                let verificationCodeField = alert.addTextField("Verificaiton code.")
+                alert.addButton("Enter") {
+                    if verificationCodeField.text != "" {
+                        let verificationCode = verificationCodeField.text
+                        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
+
+                        let credential = PhoneAuthProvider.provider().credential(
+                            withVerificationID: verificationID!,
+                            verificationCode: verificationCode!)
+                        
+                        Auth.auth().signIn(with: credential) { (authResult, error) in
+                            if let error = error {
+                                self.activityIndicator.stopAnimating()
+                                self.showIncompleteError(errorMessage: error.localizedDescription)
+                        
+                                return
+                            }
+                            // User is signed in
+                            self.showSuccessMessage()
+                        }
+                    }
+                }
+                
+                let timeoutAction: SCLAlertView.SCLTimeoutConfiguration.ActionType = {
+                    // action here
+                }
+                alert.showCustom("Please enter the verification code that was sent to your phone number. ", subTitle: "Standard SMS charges may apply.", color: UIColor.white, icon: UIImage(named: "bigGLogo")!, closeButtonTitle: "Cancel", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 30.0, timeoutAction:timeoutAction), colorStyle: 1, colorTextButton: 2, circleIconImage: UIImage(), animationStyle: .rightToLeft)
+                
+        }
+        }
+    }
+    
+//  FACEBOOK LOGIN
     @objc func facebookLoginButtonClicked() {
         let loginManager = LoginManager()
         loginManager.logIn(permissions: [ .publicProfile ], viewController: self) { loginResult in
@@ -325,7 +449,45 @@ class Login: UIViewController {
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
+                self.showSuccessMessage()
             }
+        }
+    }
+    
+//  GOOGLE LOGIN
+    @objc func googleLoginButtonClicked() {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+    }
+    
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func sign(_ signIn: GIDSignIn!,
+              dismiss viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
+        showSuccessMessage()
+    }
+    
+    public func signIn(_ signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                       withError error: Error!) {
+        if (error == nil) {
+            // Perform any operations on signed in user here.
+//            let userId = user.userID                  // For client-side use only!
+//            let idToken = user.authentication.idToken // Safe to send to the server
+//            let fullName = user.profile.name
+//            let givenName = user.profile.givenName
+//            let familyName = user.profile.familyName
+//            let email = user.profile.email
+            showSuccessMessage()
+        } else {
+            print("\(error.localizedDescription)")
+            showIncompleteError(errorMessage: error.localizedDescription)
+
         }
     }
 

@@ -21,6 +21,7 @@
 		D87D813E22C51F0E00321EE7 /* The_Green_Book_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D813D22C51F0E00321EE7 /* The_Green_Book_AppTests.swift */; };
 		D87D814922C51F0E00321EE7 /* The_Green_Book_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D814822C51F0E00321EE7 /* The_Green_Book_AppUITests.swift */; };
 		D8DD202422C68B2B0062E341 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD202322C68B2B0062E341 /* SignUp.swift */; };
+		D8EF20D323300D5100F7E8C3 /* BusinessMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EF20D223300D5100F7E8C3 /* BusinessMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,9 @@
 		D87D814422C51F0E00321EE7 /* The Green Book AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Green Book AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87D814822C51F0E00321EE7 /* The_Green_Book_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Green_Book_AppUITests.swift; sourceTree = "<group>"; };
 		D87D814A22C51F0E00321EE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8947E21233E840300501420 /* The Green Book App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "The Green Book App.entitlements"; sourceTree = "<group>"; };
 		D8DD202322C68B2B0062E341 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		D8EF20D223300D5100F7E8C3 /* BusinessMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessMap.swift; sourceTree = "<group>"; };
 		F68358FCD6CF338B9B170904 /* Pods-The Green Book AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-The Green Book AppUITests.release.xcconfig"; path = "Target Support Files/Pods-The Green Book AppUITests/Pods-The Green Book AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +157,7 @@
 		D87D812722C51F0D00321EE7 /* The Green Book App */ = {
 			isa = PBXGroup;
 			children = (
+				D8947E21233E840300501420 /* The Green Book App.entitlements */,
 				D87D812822C51F0D00321EE7 /* AppDelegate.swift */,
 				D8DD202222C67E7D0062E341 /* View */,
 				D83694C022C521C7004875C1 /* GoogleService-Info.plist */,
@@ -189,6 +193,7 @@
 			children = (
 				D87D812A22C51F0D00321EE7 /* Login.swift */,
 				D8DD202322C68B2B0062E341 /* SignUp.swift */,
+				D8EF20D223300D5100F7E8C3 /* BusinessMap.swift */,
 				D8DD202522C68BDA0062E341 /* Extensions */,
 			);
 			path = View;
@@ -214,6 +219,7 @@
 				D87D812322C51F0D00321EE7 /* Resources */,
 				CA590E741C757B9C177E2F1E /* [CP] Embed Pods Frameworks */,
 				D8192D9622C5247500B76519 /* ShellScript */,
+				A4B48A27B7A532603F4CCC8E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,6 +280,11 @@
 				TargetAttributes = {
 					D87D812422C51F0D00321EE7 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					D87D813822C51F0E00321EE7 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -380,6 +391,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A4B48A27B7A532603F4CCC8E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-The Green Book App/Pods-The Green Book App-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-The Green Book App/Pods-The Green Book App-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-The Green Book App/Pods-The Green Book App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B5030876C83F72EB2AF0AFCE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,6 +474,7 @@
 			files = (
 				D87D812B22C51F0D00321EE7 /* Login.swift in Sources */,
 				D8DD202422C68B2B0062E341 /* SignUp.swift in Sources */,
+				D8EF20D323300D5100F7E8C3 /* BusinessMap.swift in Sources */,
 				D87D812922C51F0D00321EE7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,6 +651,7 @@
 			baseConfigurationReference = 45DB9CD2231CE4E574C6A9B2 /* Pods-The Green Book App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "The Green Book App/The Green Book App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6Z3NDTB46;
 				INFOPLIST_FILE = "The Green Book App/Info.plist";
@@ -641,6 +671,7 @@
 			baseConfigurationReference = 5492D502F52BB2119EBE5BA4 /* Pods-The Green Book App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "The Green Book App/The Green Book App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U6Z3NDTB46;
 				INFOPLIST_FILE = "The Green Book App/Info.plist";
