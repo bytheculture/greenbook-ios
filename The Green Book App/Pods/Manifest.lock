@@ -30,6 +30,9 @@ PODS:
     - FirebaseAnalytics (= 6.0.2)
   - Firebase/CoreOnly (6.3.0):
     - FirebaseCore (= 6.0.3)
+  - Firebase/Database (6.3.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 6.0.0)
   - Firebase/Performance (6.3.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 3.1.0)
@@ -55,6 +58,10 @@ PODS:
   - FirebaseCore (6.0.3):
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseDatabase (6.0.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - leveldb-library (~> 1.18)
   - FirebaseInstanceID (4.2.0):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
@@ -120,6 +127,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
   - IQKeyboardManager (6.4.0)
+  - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -143,6 +151,7 @@ DEPENDENCIES:
   - FacebookShare
   - Firebase/Auth
   - Firebase/Core
+  - Firebase/Database
   - Firebase/Performance
   - FirebaseAnalytics
   - GoogleSignIn
@@ -170,6 +179,7 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseDatabase
     - FirebaseInstanceID
     - FirebasePerformance
     - FirebaseRemoteConfig
@@ -179,6 +189,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - IQKeyboardManager
+    - leveldb-library
     - nanopb
     - NVActivityIndicatorView
     - Protobuf
@@ -203,6 +214,7 @@ SPEC CHECKSUMS:
   FirebaseAuth: 7fa2cc010b93770831a4e7a60651b52c3b8d111a
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 68f8a7f50cdae542715d4e86afa37c4067217dcb
+  FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
   FirebaseInstanceID: f20243a1d828e0e9a3798b995174dedc16f1b32a
   FirebasePerformance: 1cf814c294cb0f6e0d36cde0760d09835b13c9ce
   FirebaseRemoteConfig: 7c64ecec5ca63d7c6b304509c3a6f9a036d403d4
@@ -212,6 +224,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: c7a0b08bda3bf808be823ed151f0e28ac6866e71
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
@@ -221,6 +234,6 @@ SPEC CHECKSUMS:
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
 
-PODFILE CHECKSUM: 5a8e7a1471c885e551dc71c91c260919b4e59908
+PODFILE CHECKSUM: 2b70b54669abf7fb8fae63bc7157df42a2049f40
 
 COCOAPODS: 1.7.1

@@ -12,6 +12,7 @@ import TextFieldEffects
 import UITextField_Shake
 import SwiftyButton
 import FirebaseAuth
+import FirebaseDatabase
 import NVActivityIndicatorView
 import SCLAlertView
 import FBSDKLoginKit
@@ -26,6 +27,8 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
     var passwordField = HoshiTextField()
     var activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), type: .ballTrianglePath, color: UIColor.white, padding: 0)
     
+    var ref: DatabaseReference!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -36,6 +39,8 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
         
         GIDSignIn.sharedInstance().delegate = self as? GIDSignInDelegate
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -98,10 +103,12 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
         registerButton.highlightedColor = UIColor(red:0.30, green:0.30, blue:0.30, alpha:1.0)
         registerButton.setTitle("REGISTER", for: .normal)
         registerButton.titleLabel?.font = UIFont(name: "FjallaOne-Regular", size: 28)
-        registerButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(register), for: .touchUpInside)
         
         let or = UIImage(named: "or")
         let orView = UIImageView(image: or!)
+        let orView2 = UIImageView(image: or!)
+
         
         let registerWithLabel = UILabel()
         registerWithLabel.text = "REGISTER WITH"
@@ -136,7 +143,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
         //        }
         
         let screenHeight = self.view.bounds.height
-        let screenWdith = self.view.bounds.width
+        let screenWidth = self.view.bounds.width
         
         logoView.snp.makeConstraints { (make) -> Void in
             make.width.height.equalTo(60)
@@ -149,7 +156,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.width.equalTo(233)
             make.height.equalTo(40)
             make.top.equalTo(logoView.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(screenWdith * 1/10)
+            make.left.equalToSuperview().offset(screenWidth * 1/10)
         }
         
         self.view.addSubview(loginLabel)
@@ -157,45 +164,53 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.width.equalTo(250)
             make.height.equalTo(25)
             make.top.equalTo(welcomeLabel.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(screenWdith * 1/10)
+            make.left.equalToSuperview().offset(screenWidth * 1/10)
         }
         
         self.view.addSubview(nameField)
         nameField.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(300)
             make.height.equalTo(50)
-            make.top.equalTo(loginLabel.snp.bottom).offset(10)
+            make.top.equalTo(loginLabel.snp.bottom).offset(5)
             make.left.equalTo(loginLabel.snp.left)
-            make.right.equalToSuperview().offset(-screenWdith * 1/10)
-        }
-        
-        self.view.addSubview(emailAddressField)
-        emailAddressField.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(300)
-            make.height.equalTo(50)
-            make.top.equalTo(nameField.snp.bottom).offset(10)
-            make.left.equalTo(loginLabel.snp.left)
-            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
         }
         
         self.view.addSubview(phoneNumberField)
         phoneNumberField.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(300)
             make.height.equalTo(50)
-            make.top.equalTo(emailAddressField.snp.bottom).offset(10)
+            make.top.equalTo(nameField.snp.bottom).offset(5)
             make.left.equalTo(loginLabel.snp.left)
-            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
+        }
+        
+        self.view.addSubview(orView)
+        orView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(phoneNumberField.snp.bottom).offset(20)
+            make.left.equalTo(loginLabel.snp.left)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
+            make.height.equalTo(20)
+            make.centerX.equalToSuperview()
+        }
+        
+        self.view.addSubview(emailAddressField)
+        emailAddressField.snp.makeConstraints { (make) -> Void in
+            make.width.equalTo(300)
+            make.height.equalTo(50)
+            make.top.equalTo(orView.snp.bottom).offset(-10)
+            make.left.equalTo(loginLabel.snp.left)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
         }
         
         self.view.addSubview(passwordField)
         passwordField.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(300)
             make.height.equalTo(50)
-            make.top.equalTo(phoneNumberField.snp.bottom).offset(10)
+            make.top.equalTo(emailAddressField.snp.bottom).offset(5)
             make.left.equalTo(loginLabel.snp.left)
-            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
         }
-        
         
         self.view.addSubview(registerButton)
         registerButton.snp.makeConstraints { (make) -> Void in
@@ -205,11 +220,11 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.centerX.equalToSuperview()
         }
         
-        self.view.addSubview(orView)
-        orView.snp.makeConstraints { (make) -> Void in
+        self.view.addSubview(orView2)
+        orView2.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(registerButton.snp.bottom).offset(screenHeight * 1/30)
             make.left.equalTo(loginLabel.snp.left)
-            make.right.equalToSuperview().offset(-screenWdith * 1/10)
+            make.right.equalToSuperview().offset(-screenWidth * 1/10)
             make.height.equalTo(20)
             make.centerX.equalToSuperview()
         }
@@ -219,7 +234,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.width.equalTo(100)
             make.height.equalTo(20)
             make.centerX.equalToSuperview()
-            make.top.equalTo(orView.snp.bottom).offset(15)
+            make.top.equalTo(orView2.snp.bottom).offset(15)
         }
         
         self.view.addSubview(facebookLogin)
@@ -227,7 +242,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.top.equalTo(registerWithLabel.snp.bottom).offset(15)
             make.width.equalTo(75)
             make.height.equalTo(75)
-            make.centerX.equalToSuperview().offset(-60)
+            make.centerX.equalToSuperview().offset(-50)
         }
         
         self.view.addSubview(googleLogin)
@@ -235,7 +250,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
             make.top.equalTo(facebookLogin.snp.top)
             make.width.equalTo(75)
             make.height.equalTo(75)
-            make.centerX.equalToSuperview().offset(60)
+            make.left.equalTo(facebookLogin.snp.right).offset(20)
         }
         
         self.view.addSubview(activityIndicator)
@@ -260,49 +275,109 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
         return numberTest.evaluate(with: testNumber)
     }
     
-    @objc func login() {
+    @objc func register() {
         let email = emailAddressField.text ?? ""
         let password = passwordField.text ?? ""
         let phoneNumber = phoneNumberField.text ?? ""
-
         
-        //shakes UITextFields if they are empty
-        if (password == "" || email == "" || phoneNumber == "") {
-            self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-            self.phoneNumberField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-            self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-        } else if email != "" {
-            if isValidEmail(testStr: email) {
-                activityIndicator.startAnimating()
-                loginToFirebase(email: email, password: password, phoneNumber: nil)
+        if email != "" {
+            if password == "" {
+                self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
             } else {
-                showIncompleteError(errorMessage: "Please use the following email format: test@email.com")
+                if isValidEmail(testStr: email) {
+                    activityIndicator.startAnimating()
+                    registerWithFirebase(email: email, password: password, phoneNumber: nil)
+                } else {
+                    showIncompleteError(errorMessage: "Please use the following email format: name@email.com")
+                }
             }
         } else if phoneNumber != "" {
-            if isPhoneNumberValid(testNumber: phoneNumber) {
-                activityIndicator.startAnimating()
-                loginToFirebase(email: "", password: password, phoneNumber: phoneNumber)
-            } else {
-                showIncompleteError(errorMessage: "Please use the following phone number format: 334-000-0000")
-            }
+            //            if isPhoneNumberValid(testNumber: phoneNumber) {
+            activityIndicator.startAnimating()
+            registerWithFirebase(email: "", password: password, phoneNumber: phoneNumber)
+            //            } else {
+            //                showIncompleteError(errorMessage: "Please use the following phone number format: 334-000-0000")
+            //            }
         }
         
     }
     
-    func loginToFirebase(email: String, password: String, phoneNumber: String?) {
-        
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+    func registerWithFirebase(email: String, password: String, phoneNumber: String?) {
+        if phoneNumber == nil {
+                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    if let error = error {
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
+                    self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
+                    
+
+                    self.showIncompleteError(errorMessage: error.localizedDescription)
+                    
+                } else if Auth.auth().currentUser != nil {
+                    let name = self.nameField.text
+                    let user = Auth.auth().currentUser
+                    self.ref.child("users").child(user!.uid).setValue(["name": name])
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.showSuccessMessage()
+                }
+            }
+        } else {
+            phoneNumberLogin(phoneNumber: phoneNumber!)
+        }
+    }
+    
+    func phoneNumberLogin(phoneNumber: String!) {
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            
             if let error = error {
-                print(error.localizedDescription)
                 
-                self.emailAddressField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-                self.passwordField.shake(2, withDelta: 5, speed: 0.1, shakeDirection: .vertical)
-                
-                self.showIncompleteError(errorMessage: error.localizedDescription)
-                
-            } else if Auth.auth().currentUser != nil {
+                let alert = SCLAlertView()
+                alert.showError("Oh No!", subTitle: error.localizedDescription)
                 self.activityIndicator.stopAnimating()
-                self.showSuccessMessage()
+                return
+            } else {
+                // Sign in using the verificationID and the code sent to the user
+                
+                //            ask user for verificationCode
+                let alert = SCLAlertView()
+                let verificationCodeField = alert.addTextField("Verificaiton code.")
+                alert.addButton("Enter") {
+                    if verificationCodeField.text != "" {
+                        let verificationCode = verificationCodeField.text
+                        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
+                        
+                        let credential = PhoneAuthProvider.provider().credential(
+                            withVerificationID: verificationID!,
+                            verificationCode: verificationCode!)
+                        
+                        Auth.auth().signIn(with: credential) { (authResult, error) in
+                            if let error = error {
+                                self.activityIndicator.stopAnimating()
+                                self.showIncompleteError(errorMessage: error.localizedDescription)
+                                
+                                return
+                            } else {
+                                // User is signed in
+                                let user = Auth.auth().currentUser
+                                let name = self.nameField.text!
+                                
+                                self.ref.child("users").child(user!.uid).setValue(["name": name])
+                                
+                                self.activityIndicator.stopAnimating()
+                                self.showSuccessMessage()
+                            }
+                        }
+                    }
+                }
+                
+                let timeoutAction: SCLAlertView.SCLTimeoutConfiguration.ActionType = {
+                    // action here
+                }
+                alert.showCustom("Please enter the verification code that was sent to your phone number. ", subTitle: "Standard SMS charges may apply.", color: UIColor.white, icon: UIImage(named: "bigGLogo")!, closeButtonTitle: "Cancel", timeout: SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 30.0, timeoutAction:timeoutAction), colorStyle: 1, colorTextButton: 2, circleIconImage: UIImage(), animationStyle: .rightToLeft)
+                
             }
         }
     }
@@ -336,7 +411,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
         let alertViewIcon = UIImage(named: "bigGLogo")
         let alertViewColor = UIColor.white
         
-        alertView.showCustom("Welcome To The Green Book!", subTitle: "You've successfully logged in.", color: alertViewColor, icon: alertViewIcon!)
+        alertView.showCustom("Welcome To The Green Book!", subTitle: "You've successfully created an account and logged in.", color: alertViewColor, icon: alertViewIcon!)
         
         _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
             self.activityIndicator.stopAnimating()
@@ -367,6 +442,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print("Logged in!")
+
                 self.showSuccessMessage()
             }
         }

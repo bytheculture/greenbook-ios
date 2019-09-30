@@ -12,6 +12,7 @@ target 'The Green Book App' do
   pod 'Crashlytics', '~> 3.13.2'
   pod 'FirebaseAnalytics'
   pod 'Firebase/Performance'
+  pod 'Firebase/Database'
   pod 'SnapKit'
   pod 'TextFieldEffects'
   pod 'UITextField+Shake', '~> 1.2'

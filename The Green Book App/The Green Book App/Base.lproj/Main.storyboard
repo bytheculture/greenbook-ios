@@ -21,29 +21,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="mFl-xp-emj"/>
-                    <connections>
-                        <segue destination="mTY-Ao-K1q" kind="show" id="BZb-th-eyM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="114.50892857142857"/>
-        </scene>
-        <!--Sign Up-->
-        <scene sceneID="P5E-z3-jJe">
-            <objects>
-                <viewController id="mTY-Ao-K1q" customClass="SignUp" customModule="The_Green_Book_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gVY-EH-NR9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="B1B-Gm-pqL"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="IrK-bH-mWv"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TJ7-UO-7MG" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2296" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LuB-Lb-3Ue">

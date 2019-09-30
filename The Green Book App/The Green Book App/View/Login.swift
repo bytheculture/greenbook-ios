@@ -255,15 +255,15 @@ class Login: UIViewController, GIDSignInUIDelegate {
             make.top.equalTo(signInWithLabel.snp.bottom).offset(15)
             make.width.equalTo(75)
             make.height.equalTo(75)
-            make.centerX.equalToSuperview().offset(-60)
+            make.centerX.equalToSuperview().offset(-50)
         }
         
         self.view.addSubview(googleLogin)
         googleLogin.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(facebookLogin.snp.top)
+            make.left.equalTo(facebookLogin.snp.right).offset(20)
             make.width.equalTo(75)
             make.height.equalTo(75)
-            make.centerX.equalToSuperview().offset(60)
         }
         
         self.view.addSubview(activityIndicator)
