@@ -26,6 +26,14 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
     var passwordField = HoshiTextField()
     var activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), type: .ballTrianglePath, color: UIColor.white, padding: 0)
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -131,7 +139,7 @@ class SignUp: UIViewController, GIDSignInUIDelegate {
         let screenWdith = self.view.bounds.width
         
         logoView.snp.makeConstraints { (make) -> Void in
-            make.width.height.equalTo(120)
+            make.width.height.equalTo(60)
             make.top.equalToSuperview().offset(screenHeight * 1/15)
             make.centerX.equalToSuperview()
         }

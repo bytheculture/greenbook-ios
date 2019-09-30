@@ -25,6 +25,21 @@ class Login: UIViewController, GIDSignInUIDelegate {
     var passwordField = HoshiTextField()
     var activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), type: .ballTrianglePath, color: UIColor.white, padding: 0)
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationItem.setHidesBackButton(false, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -301,7 +316,7 @@ class Login: UIViewController, GIDSignInUIDelegate {
     }
     
     @objc func goToRegister() {
-        self.present(SignUp(), animated: true, completion: nil)
+        self.navigationController?.pushViewController(SignUp(), animated: true)
     }
     
     @objc func forgotPassword() {
